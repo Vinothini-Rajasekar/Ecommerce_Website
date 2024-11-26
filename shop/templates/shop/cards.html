@@ -1,0 +1,100 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+  <!--<h1>Carts</h1>-->
+  <style>  
+    .logo img {
+        max-width: 100%;
+        height: auto;
+    }
+</style>
+  <header>
+    <nav class="navbar">
+      <div class="logo">
+        <img src="/media/image/logo.png" alt="logo">
+      </div>
+      <ul class="nav-links">
+        <li><a href="{% url 'product_list' %}">Product List</a></li>
+        <li><a href="{% url 'card_view' %}">View Cart</a></li>
+        <li><a href="{% url 'login' %}">Login</a></li>
+      </ul>
+    </nav>
+  </header>
+  
+  <ul>
+    <!-- Initialize total price -->
+    
+    {% for card in cards %}
+      <div> 
+        <!-- Display product image -->
+        <img src="{{ card.Products.image.url }}" width="100" height="100">
+
+        <!-- Display product description -->
+        <p>{{ card.Products.description }}</p>
+
+        <!-- Display product name -->
+        <h2>{{ card.Products.name }}</h2>
+
+        <!-- Display product price per item -->
+        <p>Price: ${{ card.Products.price }}</p>
+
+        <!-- Display cart item quantity -->
+        <p>Quantity: {{ card.quantity }}</p>
+
+        <!-- Calculate the total price for this item 
+        {% with item_total=card.Products.price|add:card.Products.price %}
+        <p>Subtotal: ${{ item_total }}</p>-->
+
+        <!-- Add item total to the final total price 
+        {% with total_price=total_price|add:item_total %}
+        {% endwith %}
+        {% endwith %}-->
+
+        <!-- Form to Increase Quantity -->
+        <form action="{% url 'update_cart' card.id %}" method="POST">
+          {% csrf_token %}
+          <button type="submit" name="action" value="increase">Increase</button>
+        </form>
+
+        <!-- Button to Decrease Quantity (optional) -->
+        <form action="{% url 'update_cart' card.id %}" method="POST">
+          {% csrf_token %}
+          <button type="submit" name="action" value="decrease">Decrease</button>
+        </form>
+
+        <!-- Remove item from cart -->
+        <form action="{% url 'remove_cart_item' card.id %}" method="POST">
+          {% csrf_token %}
+          <button type="submit">Remove from cart</button>
+        </form>
+      </div>
+     
+      
+      
+      
+
+    {% endfor %}
+    
+    <!-- Display the final total price -->
+    <div class="total-price">
+      
+      <h3>Total Price: ${{ total_price }}</h3>
+    </div>
+
+
+    <!-- Checkout button -->
+    <div class="payment">
+      <a href="{% url 'payment_page' %}" class="btn-payment">Proceed to Checkout</a>
+    </div>
+   
+  </ul>
+</body>
+</html>

@@ -1,0 +1,45 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <img src="/media/image/logo.png" alt="logo">
+            </div>
+            <ul class="nav-links">
+                <li><a href="{% url 'product_list' %}">Product List</a></li>
+                <li><a href="{% url 'card_view' %}">View Cart</a></li>
+                <li><a href="{% url 'login' %}">Login</a></li>
+                
+        
+            </ul>
+        </nav>
+    </header>
+<body>
+
+    
+        <h2>Choose Payment Method</h2>
+        <div class="payment-container"></div>
+        <form method="POST" action="{% url 'process_cod_payment' %}">
+            {% csrf_token %}
+            <label>
+                <input type="radio" name="payment_method" value="cash_on_delivery" checked> Cash on Delivery
+            </label><br><br>
+            <div class="total-price">
+      
+                <h3>Total Price: ${{ total_price }}</h3>
+              </div>
+            <button type="submit" class="button">Proceed with Cash on Delivery</button>
+        </form>
+    </div>
+
+</body>
+</html>

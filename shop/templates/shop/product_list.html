@@ -1,0 +1,51 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product List</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body>
+    
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <img src="media/image/logo.png" alt="logo">
+            </div>
+            <ul class="nav-links">
+                <li><a href="{% url 'product_list' %}">Product List</a></li>
+                <li><a href="{% url 'card_view' %}">View Cart</a></li>
+                <li><a href="{% url 'login' %}">Login</a></li>
+                
+        
+            </ul>
+        </nav>
+    </header>
+        <h1>Products</h1>
+        <!--<img id= "bgimg" src="media/image/press.jpg" alt="press"> -->
+   
+       <div class="product-list"> 
+            {% for product in products %}
+            <div class="product-item">
+                <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                <h3>{{ product.name }}</h3>
+                <p>{{ product.description }}</p>
+                <p>Rs.{{ product.price }}</p>
+                <a href="{% url 'product_detail' product.id %}">View Details</a>
+                <a href="{% url 'add_card' product.id %}">Add to cart</a>
+            </div>
+            {% endfor %}
+        </div>
+
+    
+        
+</body>
+</html>
+
+
+
+

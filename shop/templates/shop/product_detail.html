@@ -1,0 +1,38 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ products.name }}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+  
+
+<body>
+    
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <img src="/media/image/logo.png" alt="logo">
+            </div>
+            <ul class="nav-links">
+                <li><a href="{% url 'product_list' %}">Product List</a></li>
+                <li><a href="{% url 'card_view' %}">View Cart</a></li>
+                <li><a href="{% url 'login' %}">Login</a></li>
+                
+        
+            </ul>
+        </nav>
+    </header>
+<body>
+    <h1>{{ products.name }}</h1>
+    <img src="{{ products.image.url }}" alt="{{ product.name }}">
+    <p>{{ products.description }}</p>
+    <p>Price: Rs.{{ products.price }}</p>
+
+    <a href="{%url 'add_card' products.id %}">Add to Cart</a>
+    <a href="{% url 'product_list' %}">Back to Product List</a>
+</body>
+</html>
